@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.cdnfonts.com/css/avant-que');
+
+:root {
+    --mainColor: rgb(23, 22, 29);
+    --accentColor: rgb(224, 121, 54);
+    --hoverColor: rgb(48, 48, 48);
+    --textColor1: rgb(116, 116, 116);
+    --textColor2: rgb(255, 255, 255);
+    --darkWhite: rgb(226, 226, 226);
+    --snowWhite: rgb(241, 241, 241);
+}
+
+main .header {
+    width: 100%;
+    height: 30vh;
+    background: var(--mainColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main .header h1 {
+    color: var(--textColor2);
+    font-family: 'Avant que...', sans-serif;
+    font-size: 3.5em;
+    font-weight: lighter;
+    width: 100%;
+    text-align: center;
+}
+main .expowrapper {
+    margin-block: 5vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.expandableMenu {
+    width: 90%;
+    margin-block: 1vh;
+    cursor: pointer;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.expandableMenu .bar {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.expandableMenu .bar h2 {
+    margin-left: 1vw;
+    width: max-content;
+    font-size: .7em;
+    color: var(--mainColor);
+}
+.expandableMenu .bar span {
+    text-decoration: none;
+    margin-right: 4vw;
+    width: max-content;
+    font-size: 1.5em;
+}
+.expandableMenu .gallery {
+    height: auto;
+    display: none;
+    flex-wrap: wrap;
+    width: fit-content;
+    justify-content: center;
+    margin-block: 2vh;
+}
+.expandableMenu .gallery img {
+    height: 30vh;
+    width: 30vh;
+    margin: 1vh;
+    object-fit: cover;
+    background: url('../../Images/Main/loading.gif');
+    background-position: center;
+}
+.expandableMenu .gallery video {
+    height: 30vh;
+    width: 30vh;
+    margin: 1vh;
+    object-fit: cover;
+}
+.expandableMenu .dropdown {
+    display: none;
+}
+.toggle .dropdown { 
+    width: 100%;
+    display: flex; 
+}
+.toggle .bar span {
+    color: var(--accentColor);
+    transform: rotate(90deg);
+}
+
+.upcomming {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 3vh;
+}
+.upcommingExpo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-block: 1vh;
+}
+.upcommingExpo img {
+    width: 90%;
+    height: 30%;
+    margin-left: 3.5vw;
+}
+.upcommingExpo .info > * {
+    margin-bottom: 3vh;
+    overflow: hidden;
+}
+.upcommingExpo .info .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2vw;
+    width: 100%;
+}
+.upcommingExpo .info .wrapper .datewrapper, .upcommingExpo .info .wrapper .locationwrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.upcommingExpo .info h2 {
+    font-weight: 10vh;
+    color: var(--accentColor);
+    font-size: 1em;
+    margin-left: 2vw;
+}
+.upcommingExpo .info img {
+    width: 5vw;
+    height: 5vw;
+    margin-left: 0;
+    margin-right: 2vw;
+}
+.upcommingExpo .info strong {
+    color: var(--hoverColor);
+}
+.upcommingExpo .info p {
+    color: var(--mainColor);
+}

@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.cdnfonts.com/css/avant-que');
+
+:root {
+    --mainColor: rgb(23, 22, 29);
+    --accentColor: rgb(224, 121, 54);
+    --hoverColor: rgb(48, 48, 48);
+    --textColor1: rgb(116, 116, 116);
+    --textColor2: rgb(255, 255, 255);
+    --darkWhite: rgb(226, 226, 226);
+    --snowWhite: rgb(241, 241, 241);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+html {
+    min-height:100%;
+    position: relative;
+ }
+ body .darkOverlay {
+     z-index: 999;
+     position: absolute;
+     width: 100%;
+     height: 100vh;
+     top: 0;
+     bottom: 0;
+     background: rgba(0, 0, 0, 0.8);
+     display: none;
+     align-items: center;
+     flex-direction: column;
+ }
+ body .darkOverlay .overlayWrapper {
+    width: 90vw;
+    height: 70vh;
+    margin-top: 10vh;
+    z-index: 999;
+    background: var(--snowWhite);
+    position: fixed;
+    display: grid;
+grid-template-columns: repeat(12, 1fr);
+grid-template-rows: repeat(12, 1fr);
+grid-column-gap: 0px;
+grid-row-gap: 0px; 
+    justify-items: center;
+}
+body .darkOverlay .overlayWrapper .header {
+    grid-area: 1 / 2 / 2 / 12;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 2vh;
+}
+body .darkOverlay img {
+    cursor: pointer;
+    width: 3rem;
+}
+body .darkOverlay img:hover {
+    content: url('../../Images/Main/closeIconHover.png');
+}
+body .darkOverlay .wrapper {
+    grid-area: 3 / 1 / 9 / 13;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+body .darkOverlay .wrapper button {
+    background: transparent;
+    cursor: pointer;
+    color: var(--mainColor);
+    border: none;
+    width: min-content;
+    font-size: 5vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+body .darkOverlay .wrapper button:hover {color: var(--accentColor); transition: .5s;}
+body .darkOverlay .wrapper .painting {
+    width: 100%;
+    height: 100%;
+    background: url("../../Images/Main/placeholder.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+body .darkOverlay .previewWrapper {
+    grid-area: 10 / 1 / 13 / 13;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+body .darkOverlay .previewWrapper > * {
+    position: relative;
+    width: 15vw;
+    height: 6vh;
+    border-bottom: 0.4vh solid var(--mainColor);
+    background-image: url("../../Images/Main/placeholder.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    margin: 1vw 1vw 0 0;
+}
+body .darkOverlay .previewWrapper .selected {
+    border-color: var(--accentColor);
+    height: 7vh;
+    width: 12.5vw;
+}
+
+
+main {height: auto;}
+main section:nth-of-type(1) {
+    position: relative;
+    width: 100%;
+    height: 20vh;
+    background: var(--mainColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main section:nth-of-type(1) h1 {
+    color: var(--textColor2);
+    font-family: 'Avant que...', sans-serif;
+    font-weight: lighter;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+}
+main section:nth-of-type(2) {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main section:nth-of-type(2) ul {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 40%;
+    list-style: none;
+}
+main section:nth-of-type(2) ul li {
+    width: 15%;
+    height: 80%;
+    text-align: center;
+    border-radius: 50px;
+    border: 0.2vh solid var(--mainColor);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2vh;
+    cursor: pointer;
+}
+main section:nth-of-type(2) ul .selected {
+    background: var(--mainColor);
+    color: var(--textColor2);
+    border: 2px solid var(--mainColor);
+}
+main section:nth-of-type(3) {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main section:nth-of-type(3) .paintings {
+    height: auto;
+    width: auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto auto;
+    grid-gap: 2vh;
+    margin-bottom: 5vh;
+}
+main section:nth-of-type(3) .paintings .art-item {
+    justify-self: start;
+    width: 40vw;
+    height: 30vh;
+    background: rgb(252, 252, 252);
+    border: 3px ridge rgba(190, 190, 190, 0.3);
+    border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
+    box-shadow: 3px 3px rgba(0,0,0,.15);
+}
+main section:nth-of-type(3) .paintings .art-item img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+}
+main section:nth-of-type(3) .paintings .art-item .art-data {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+main section:nth-of-type(3) .paintings .art-item .art-data > *{
+    text-align: center;
+}
+main section:nth-of-type(3) .paintings .art-item .art-data h1 {
+    font-weight: unset;
+    font-size: 2vh;
+    color: var(--mainColor);
+}
+main section:nth-of-type(3) .paintings .art-item .art-data h2 {
+    font-weight: unset;
+    color: var(--mainColor);
+    font-size: 1.5vh;
+}
+main section:nth-of-type(3) .paintings .art-item .art-data h3 {
+    font-weight: unset;
+    color: var(--textColor1);
+    font-size: 1.75vh;
+}
+
+@media screen and (max-width: 800px) {
+    main section:nth-of-type(1) h1 {font-size: 2em;}
+    main section:nth-of-type(2) ul {
+        flex-wrap: wrap;
+        height: auto;
+        margin-block: 2vh;
+    }
+    main section:nth-of-type(2) ul li {
+        flex-wrap: wrap;
+        margin: .5vh;
+        height: 4vh;
+        width: 30vw;
+    }
+    main section:nth-of-type(3) .paintings {grid-template-columns: 100%;}
+    main section:nth-of-type(3) .paintings .art-item {
+        width: 80vw;
+        height: 30vh;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    main section:nth-of-type(2) ul li {height: 3vh;}
+    main section:nth-of-type(2) ul {margin-block: 1vh;}
+}
