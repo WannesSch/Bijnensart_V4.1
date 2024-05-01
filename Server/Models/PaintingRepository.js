@@ -1,7 +1,7 @@
 const { Painting } = require("./Painting");
 const fs = require("fs");
 
-const defaultPath = "../public";
+const defaultPath = "./public";
 
 class PaintingRepository {
   constructor(_controls) {

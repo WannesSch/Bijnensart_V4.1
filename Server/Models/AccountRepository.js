@@ -1,7 +1,7 @@
 const { Account } = require("./Account");
 const fs = require("fs");
 
-const defaultPath = "../public";
+const defaultPath = "./public";
 
 class AccountRepository {
   constructor() {
