@@ -14,11 +14,11 @@ const { Controls } = require("./Models/Controls");
 const { PaintingRepository } = require("./Models/PaintingRepository");
 
 const Port = process.env.PORT || 443;
-const options = {
-  key: fs.readFileSync(path.join(__dirname, "../SSL/private.key")),
-  cert: fs.readFileSync(path.join(__dirname, "../SSL/certificate.crt")),
-  ca: fs.readFileSync(path.join(__dirname, "../SSL/ca_bundle.crt")),
-};
+// const options = {
+//   key: fs.readFileSync(path.join(__dirname, "../SSL/private.key")),
+//   cert: fs.readFileSync(path.join(__dirname, "../SSL/certificate.crt")),
+//   ca: fs.readFileSync(path.join(__dirname, "../SSL/ca_bundle.crt")),
+// };
 
 let tempFileName = "";
 let accounts, paintings, controls, grepoTowns, grepoTags;
@@ -386,7 +386,7 @@ app.post("/:action", function (req, res) {
   }
 });
 
-https.createServer(options, app).listen(443, () => {
+https.createServer(app).listen(443, () => {
   Log(`Listening at https://localhost:${Port}`);
 
   accounts = new AccountRepository();
