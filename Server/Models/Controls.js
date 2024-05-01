@@ -4,7 +4,7 @@ const path = require("path");
 const { Visit } = require("./Visit");
 const fs = require("fs");
 
-const defaultPath = "./public";
+const defaultPath = "../public";
 
 class Controls {
   constructor(_accounts) {
