@@ -23,7 +23,7 @@ const Port = process.env.PORT || 80;
 let tempFileName = "";
 let accounts, paintings, controls, grepoTowns, grepoTags;
 
-app.use(express.static(path.join(__dirname, "./public/")));
+app.use(express.static(path.join(__dirname, "../public/")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "10000mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10000mb", extended: true }));
