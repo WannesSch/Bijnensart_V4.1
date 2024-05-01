@@ -13,7 +13,7 @@ const { AccountRepository } = require("./Models/AccountRepository");
 const { Controls } = require("./Models/Controls");
 const { PaintingRepository } = require("./Models/PaintingRepository");
 
-const Port = process.env.PORT || 443;
+const Port = process.env.PORT || 80;
 // const options = {
 //   key: fs.readFileSync(path.join(__dirname, "../SSL/private.key")),
 //   cert: fs.readFileSync(path.join(__dirname, "../SSL/certificate.crt")),
@@ -23,7 +23,7 @@ const Port = process.env.PORT || 443;
 let tempFileName = "";
 let accounts, paintings, controls, grepoTowns, grepoTags;
 
-app.use(express.static(path.join(__dirname, "../public/")));
+app.use(express.static(path.join(__dirname, "./public/")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "10000mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10000mb", extended: true }));
@@ -386,8 +386,11 @@ app.post("/:action", function (req, res) {
   }
 });
 
-https.createServer(app).listen(443, () => {
-  Log(`Listening at https://localhost:${Port}`);
+var server = app.listen(process.env.PORT || 3000, function () {
+  var host = server.address().address
+  var port = server.address().port
+
+  Log(`App listening at https://${host}:${port}`);
 
   accounts = new AccountRepository();
   controls = new Controls(accounts);
@@ -395,7 +398,8 @@ https.createServer(app).listen(443, () => {
 
   paintings.ReadJSON();
   accounts.ReadJSON();
-});
+})
+
 function Log(msg) {
   let date = new Date();
   let currTime =
