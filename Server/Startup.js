@@ -386,11 +386,8 @@ app.post("/:action", function (req, res) {
   }
 });
 
-var server = app.listen(process.env.PORT || 3000, function () {
-  var host = server.address().address
-  var port = server.address().port
-
-  Log(`App listening at https://${host}:${port}`);
+var server = app.listen(Port, function () {
+  Log(`App listening at https://localhost:${Port}`);
 
   accounts = new AccountRepository();
   controls = new Controls(accounts);

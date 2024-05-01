@@ -111,7 +111,7 @@ class Controls {
     );
   }
   EmptyTempFilesDir() {
-    fs.readdir(path.join(defaultPath, "/Images/TempFiles/"), (err, files) => {
+    fs.readdirSync(path.join(defaultPath, "/Images/TempFiles/"), (err, files) => {
       if (err) throw err;
 
       for (const file of files) {
