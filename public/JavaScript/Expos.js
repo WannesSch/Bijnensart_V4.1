@@ -47,7 +47,11 @@ class Controls {
                                     <div class="wrapper">
                                      <img src="https://img.icons8.com/external-others-inmotus-design/67/null/external-Info-basic-elements-others-inmotus-design.png"/>
                             <div class="locationwrapper">`;
-        for (let description of descriptions) html += `<p>${description}</p>`;
+        for (let description of descriptions) {
+          if (description.includes('www')) html += `<a href="${description}">${description}</a>`;
+          else html += `<p>${description}</p>`;
+        
+        }
         html += `</div>
                                 </div>
                             </div>`;
