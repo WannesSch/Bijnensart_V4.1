@@ -1,5 +1,7 @@
 class Controls {
-  constructor() {}
+  constructor() {
+    this.expos = [];
+  }
   OpenNavbar() {
     if ($("#Phone").hasClass("toggle")) {
       $("#Phone").removeClass("toggle");
@@ -59,33 +61,43 @@ class Controls {
   RetrieveAllExpos() {
     $.post("/GetAllExpos", function (data) {
       data = data.sort((a, b) => new Date(b.date) - new Date(a.date));
-      console.log(data);
-      for (let expo of data) {
-        let html = `
-                <section class="expandableMenu">
-                    <div class="bar">
-                        <h2>${expo.title}</h2>
-                        <span>&#x2771;</span>
-                    </div>
-                    <div class="dropdown gallery">`;
-        for (let file of expo.files) {
-          let ext = file.split(".")[1];
-          if (ext == "jpeg" || ext == "jpg" || ext == "png")
-            html += `<img src="./Images/Expos/${expo.title}/${file}">`;
-          if (ext == "mp4")
-            html += `
-                            <video autoplay muted loop>
-                                <source src="./Images/Expos/${expo.title}/${file}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video> 
-                            `;
-        }
-        html += `</div>
-                </section>`;
+      data.forEach(expo => {
+        controls.expos.push(expo);
+      });
 
+      for (let i = 0; i<data.length; i++) {
+        const expo = data[i];
+
+        let html = `
+        <section class="expandableMenu" id="expo-${i}">
+            <div class="bar">
+                <h2>${expo.title}</h2>
+                <span>&#x2771;</span>
+            </div>
+            <div class="dropdown gallery"></div>
+        </section>`;
         $(".expowrapper").append(html);
       }
     });
+  }
+  OpenMenu(index) {
+    let imagesHtml = "";
+    let expoId = index - 1;
+    let expo = this.expos[expoId];
+    
+    for (let file of expo.files) {
+      let ext = file.split(".")[1];
+      if (ext == "jpeg" || ext == "jpg" || ext == "png")
+      imagesHtml += `<img src="./Images/Expos/${expo.title}/${file}">`;
+      if (ext == "mp4")
+      imagesHtml += `
+                        <video autoplay muted loop>
+                            <source src="./Images/Expos/${expo.title}/${file}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video> 
+                        `;
+    }
+    $('#expo-' + expoId + " .dropdown").append(imagesHtml)
   }
 }
 
@@ -97,8 +109,9 @@ $(document).ready(() => {
 
   setTimeout(() => {
     $("section[class^=expandableMenu]").each((index, ele) => {
+      
       $(ele).click(() => {
-        console.log($(ele).hasClass("toggle"));
+        controls.OpenMenu(index)
         if ($(ele).hasClass("toggle")) $(ele).removeClass("toggle");
         else $(ele).addClass("toggle");
       });
