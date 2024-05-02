@@ -2,7 +2,7 @@
   "name": "bijnensartdev",
   "version": "1.0.0",
   "description": "Website BijnensArt",
-  "main": "server.js",
+  "main": "Server/Startup.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node Server/Startup.js"
