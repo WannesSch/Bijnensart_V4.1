@@ -14,11 +14,6 @@ const { Controls } = require("./Models/Controls");
 const { PaintingRepository } = require("./Models/PaintingRepository");
 
 const Port = process.env.PORT || 80;
-// const options = {
-//   key: fs.readFileSync(path.join(__dirname, "../SSL/private.key")),
-//   cert: fs.readFileSync(path.join(__dirname, "../SSL/certificate.crt")),
-//   ca: fs.readFileSync(path.join(__dirname, "../SSL/ca_bundle.crt")),
-// };
 
 let tempFileName = "";
 let accounts, paintings, controls, grepoTowns, grepoTags;
@@ -28,7 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "10000mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10000mb", extended: true }));
 app.use(cors());
-app.use("/Images/Grepolis", proxy());
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -46,38 +40,6 @@ const storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
-
-//grepoTags.SaveTag('23456', 'test', 23, 'Zeus', 'red');
-app.get("/GetTowns", (req, res) => {
-  res.send(grepoTowns.GetTowns());
-  res.end();
-});
-app.get("/SaveTown", (req, res) => {
-  grepoTowns.SaveTown(req.query.id, req.query.cityGroup);
-  res.end();
-});
-app.get("/GetCityTags", (req, res) => {
-  res.send(grepoCityTags.GetTags());
-  res.end();
-});
-app.get("/SaveCityTag", (req, res) => {
-  grepoCityTags.SaveTag(
-    req.query.townId,
-    req.query.text,
-    req.query.wall,
-    req.query.god,
-    req.query.color
-  );
-  res.end();
-});
-app.get("/RemoveCityTag", (req, res) => {
-  grepoCityTags.RemoveTag(req.query.id);
-  res.end();
-});
-app.post("/SendReport", upload.array("image_data"), uploadGrepolisReport);
-function uploadGrepolisReport(req, res) {
-  global.Server.SendImage(req.body.image_data, JSON.parse(req.body.reportData));
-}
 
 app.post("/UPLOADImage", upload.array("files"), uploadFiles);
 app.post("/:action", function (req, res) {
@@ -386,7 +348,7 @@ app.post("/:action", function (req, res) {
   }
 });
 
-var server = app.listen(Port, function () {
+app.listen(Port, function () {
   Log(`App listening at https://localhost:${Port}`);
 
   accounts = new AccountRepository();

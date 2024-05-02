@@ -4,6 +4,8 @@ class Controls {
     this.paintingSelected = "preview-0";
     this.openedPainting = null;
     this.paintingArr = [];
+    this.chunkIndex = 0;
+    this.chunkedArray = [];
   }
   OpenNavbar() {
     if ($("#Phone").hasClass("toggle")) {
@@ -17,12 +19,13 @@ class Controls {
     }
   }
   Update() {
-    $.post("/GETPaintings", function (dataArr) {
+    $.post("/GETPaintings", {chunkIndex: this.chunkIndex}, function (dataArr) {
       dataArr.forEach((data) => {
         controls.paintingArr.push(data);
       });
     });
     setTimeout(() => {
+      controls.SplitArrayIntoChunks();
       controls.ChangeSortType(controls.sortType);
     }, 500);
   }
@@ -67,6 +70,18 @@ class Controls {
   }
   ClosePaintingMenu() {
     $(".darkOverlay").css("display", "none");
+  }
+  SplitArrayIntoChunks() {
+    const chunkSize = 12;
+
+    this.paintingArr = this.paintingArr.sort(
+      (a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)
+    );
+
+    for (let i = 0; i < this.paintingArr.length; i += chunkSize) {
+        const chunk = this.paintingArr.slice(i, i + chunkSize);
+      this.chunkedArray.push(chunk);
+    }
   }
   LoadPaintings(array) {
     $(".paintings").empty();
@@ -153,44 +168,52 @@ class Controls {
     $("#" + this.sortType).addClass("selected");
 
     var sortedArr = [];
+    const paintingArrayUnchucked = [];
+
+    for (let i = 0; i<=this.chunkIndex; i++) {
+      
+      this.chunkedArray[i].forEach(painting => {
+        paintingArrayUnchucked.push(painting)
+      });
+    }
 
     switch (type) {
       case "newestFirst":
         {
-          sortedArr = this.paintingArr.sort(
+          sortedArr = paintingArrayUnchucked.sort(
             (a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)
           );
         }
         break;
       case "oldestFirst":
         {
-          sortedArr = this.paintingArr
+          sortedArr = paintingArrayUnchucked
             .sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate))
             .reverse();
         }
         break;
       case "paintings":
         {
-          for (let i = 0; i < this.paintingArr.length; i++)
-            if (this.paintingArr[i].type == "Schilderij")
-              sortedArr.push(this.paintingArr[i]);
+          for (let i = 0; i < paintingArrayUnchucked.length; i++)
+            if (paintingArrayUnchucked[i].type == "Schilderij")
+              sortedArr.push(paintingArrayUnchucked[i]);
         }
         break;
       case "sculptures":
         {
-          for (let i = 0; i < this.paintingArr.length; i++)
-            if (this.paintingArr[i].type == "Sculptuur")
-              sortedArr.push(this.paintingArr[i]);
+          for (let i = 0; i < paintingArrayUnchucked.length; i++)
+            if (paintingArrayUnchucked[i].type == "Sculptuur")
+              sortedArr.push(paintingArrayUnchucked[i]);
         }
         break;
       case "mostviewed":
         {
-          sortedArr = this.paintingArr.sort((a, b) => b.views - a.views);
+          sortedArr = paintingArrayUnchucked.sort((a, b) => b.views - a.views);
         }
         break;
       case "alphabetic":
         {
-          sortedArr = this.paintingArr.sort(function (a, b) {
+          sortedArr = paintingArrayUnchucked.sort(function (a, b) {
             return a.title.localeCompare(b.title);
           });
         }
@@ -241,6 +264,11 @@ class Controls {
       },
       "json"
     );
+  }
+  LoadMorePaintings() {
+    if (this.chunkIndex < this.chunkedArray.length - 1) this.chunkIndex++;
+    else $('.loadMoreBtn').css('display', 'none')
+    this.ChangeSortType(this.sortType);
   }
 }
 
